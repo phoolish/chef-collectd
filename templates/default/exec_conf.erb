@@ -5,11 +5,12 @@ LoadPlugin exec
 
 <% unless @options.nil? %>
 <Plugin exec>
-  <% @options.each_pair do |key, value|
-    if value.is_a? Array %>
+  <% @options.each_pair do |key, value| %>
+    <% if value.is_a? Array %>
   <%= collectd_key(key) %><% value.each do |subvalue| %> <%= collectd_option(subvalue) %><% end %>
-  <% else %>
+    <% else %>
   <%= collectd_key(key) %> <%= collectd_option(value) %>
-  <% end end %>
+    <% end %>
+  <% end %>
 </Plugin>
 <% end %>
