@@ -19,9 +19,9 @@
 
   <Module "<%= @name %>">
   <% @options.each_pair do |key, value| %>
-  <% if key != :paths %>
+    <% if key != :paths %>
     <%= collectd_key(key) %> <%= collectd_option(value) %>
-  <% end %>
+    <% end %>
   <% end %>
   </Module>
 
@@ -33,5 +33,4 @@
   </Module>
     <% end %>
   <% end %>
-  </Module>
 </Plugin>
