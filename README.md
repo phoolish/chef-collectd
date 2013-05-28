@@ -59,6 +59,24 @@ collectd_plugin 'myplugin' do
   type 'exec'
   options :exec => ['user', '/path/to/exec.sh']
 end
+
+# Taken from https://collectd.org/wiki/index.php/Plugin:Tail#Invalid_SSH_login_attempts
+collectd_plugin 'sshd' do
+  type 'tail'
+  options :file => {
+    '/var/log/auth.log' => {
+      :instance => 'auth',
+      :match => [
+        {
+          :regex => '\\<sshd[^:]*: Invalid user [^ ]+ from\\>',
+          :d_s_type => 'CounterInc',
+          :type => 'counter',
+          :instance => 'sshd-invalid_user'
+        }
+      ]
+    }
+  }
+end
 ```
 
 The `options` hash is converted to collectd-style settings automatically.
