@@ -44,4 +44,3 @@ package "collectd" do
   notifies :disable, 'service[postinst_collectd_init]', :immediately
   notifies :run, 'execute[kill_collectdmon]', :immediately
 end
-

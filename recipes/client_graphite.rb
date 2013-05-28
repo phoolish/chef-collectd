@@ -21,7 +21,8 @@ server = nil
 if Chef::Config[:solo]
   # Handled below in fall through case
 elsif node['graphite']['server_role']
-  search(:node, "role:#{node['graphite']['server_role']} AND chef_environment:#{node.chef_environment}") do |n|
+  query = "role:#{node['graphite']['server_role']} AND chef_environment:#{node.chef_environment}"
+  search(:node, query) do |n|
     server = n['fqdn']
   end
   Chef::Log.warn("node with role #{node['graphite']['server_role']} not found") unless server

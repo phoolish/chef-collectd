@@ -14,7 +14,8 @@ if Chef::Config[:solo]
     servers << node['collectd']['server_address']
   end
 else
-  search(:node, "role:#{node['collectd']['server_role']} AND chef_environment:#{node.chef_environment}") do |n|
+  query = "role:#{node['collectd']['server_role']} AND chef_environment:#{node.chef_environment}"
+  search(:node, query) do |n|
     servers << n['fqdn']
   end
 end

@@ -33,7 +33,9 @@ case node["platform_family"]
 when "debian"
   default['collectd']['build_prereq_pkgs'] = %w(librrd2-dev libsnmp-dev)
 when "rhel", "fedora", "suse"
-  default['collectd']['build_prereq_pkgs'] = %w(rrdtool-devel net-snmp-devel perl-ExtUtils-MakeMaker)
+  default['collectd']['build_prereq_pkgs'] = %w(
+    rrdtool-devel net-snmp-devel perl-ExtUtils-MakeMaker
+  )
 else
   default['collectd']['build_prereq_pkgs'] = []
 end

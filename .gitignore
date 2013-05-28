@@ -1,5 +1,5 @@
 metadata.json
-*.swp
+*.sw*
 .bundle
 vendor/
 test/kitchen/.kitchen
@@ -7,3 +7,4 @@ test/kitchen/.kitchen
 .kitchen.local.yml
 *.lock
 .vagrant
+*.un~

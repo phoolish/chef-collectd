@@ -32,7 +32,12 @@ unless node['collectd']['autoconf_opts'].nil?
   node['collectd']['autoconf_opts'].each { |aco| user_autoconf_options << aco }
 end
 
-tar_source_url = "#{node['collectd']['source_url_prefix']}/#{node['collectd']['source_tar_name_prefix']}#{node['collectd']['version']}#{node['collectd']['source_tar_name_extension']}"
+tar_file = [
+  node['collectd']['source_tar_name_prefix'],
+  node['collectd']['version'],
+  node['collectd']['source_tar_name_extension']
+].join("")
+tar_source_url = "#{node['collectd']['source_url_prefix']}/#{tar_file}"
 
 ark "collectd" do
   url tar_source_url
