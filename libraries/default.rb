@@ -55,14 +55,22 @@ def collectd_plugin_settings(options, level=0, overide_hash=false)
   options.each_pair do |key, value|
     if value.is_a? Array
       value.each do |subvalue|
-        output << "#{ indent }<#{ collectd_key(key) }>\n#{ collectd_plugin_settings(subvalue, level+1, true) }\n#{ indent }</#{ collectd_key(key) }>"
+        output << <<-CFG
+#{ indent }<#{ collectd_key(key) }>
+#{ collectd_plugin_settings(subvalue, level+1, true) }
+#{ indent }</#{ collectd_key(key) }>
+CFG
       end
     elsif value.is_a? Hash
       value.each_pair do |name, suboptions|
         if overide_hash
           output << "#{ indent }#{ collectd_key(name) } #{ collectd_option(suboptions) }"
         else
-          output << "#{ indent }<#{ collectd_key(key) } \"#{ name }\">\n#{ collectd_plugin_settings(suboptions, level+1) }\n#{ indent }</#{ collectd_key(key) }>"
+          output << <<-CFG
+#{ indent }<#{ collectd_key(key) } \"#{ name }\">
+#{ collectd_plugin_settings(suboptions, level+1) }
+#{ indent }</#{ collectd_key(key) }>
+CFG
         end
       end
     else
